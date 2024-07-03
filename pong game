@@ -1,0 +1,70 @@
+import turtle 
+wn = turtle.Screen()
+wn.title("my first game")
+wn.setup(width=800,height=600)
+wn.bgcolor("black")
+wn.tracer(0)
+#paddle a
+paddle_a = turtle.Turtle()
+paddle_a.speed(0)
+paddle_a.shape("square")
+paddle_a.color("white")
+paddle_a.shapesize(stretch_wid=5,stretch_len=1)
+paddle_a.penup()
+paddle_a.goto(-350,0)
+#paddle b 
+paddle_b = turtle.Turtle()
+paddle_b.speed(0)
+paddle_b.shape("square")
+paddle_b.color("white")
+paddle_b.shapesize(stretch_wid=5,stretch_len=1)
+paddle_b.penup()
+paddle_b.goto(350,0)
+#ball
+ball = turtle.Turtle()
+ball.speed(0)
+ball.shape("square")
+ball.color("white")
+ball.penup()
+ball.goto(0,0)
+ball.dx=0.1
+ball.dy=0.1
+#move paddle_a
+def move(ch):
+    if ch=="w": 
+       paddle_a.sety(paddle_a.ycor()+20)
+    elif ch=="s":
+        paddle_a.sety(paddle_a.ycor()-20)
+    elif ch=="i":
+        paddle_b.sety(paddle_b.ycor()+20)
+    elif ch=="k":
+        paddle_b.sety(paddle_b.ycor()-20)
+def moveaup():
+    move("w")
+def moveadown():
+    move("s")   
+def movebup():
+    move("i")  
+def movebdown():
+    move("k")    
+
+#keyboard binding
+wn.listen()
+wn.onkeypress(moveaup,"w")
+wn.onkeypress(moveadown,"s")
+wn.onkeypress(movebup,"i")
+wn.onkeypress(movebdown,"k")
+
+
+
+
+while True:
+    wn.update()
+    ball.sety(ball.ycor()+ball.dy)
+    ball.setx(ball.xcor()+ball.dx)
+    #for boundary
+    if(ball.ycor()>290 or ball.ycor()<-290):
+        ball.dy*=-1
+    if(ball.xcor()>390 or ball.xcor()<-390):
+        ball.dx*=-1
+        ball.goto(0,0)
